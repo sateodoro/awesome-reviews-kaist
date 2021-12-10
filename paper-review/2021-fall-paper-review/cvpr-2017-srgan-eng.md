@@ -82,6 +82,10 @@ where
 
 #### Structural Similarity Index Measure (SSIM)
 
+Similar to PSNR, SSIM measures the similarity of two images. It is the combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
+
+![Figure 9. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
+
 ## 4. Experiment & Result
 
 ### Experimental setup
