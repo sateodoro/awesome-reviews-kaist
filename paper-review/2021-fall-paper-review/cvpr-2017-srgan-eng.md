@@ -14,23 +14,23 @@ Recent convolutional neural networks (CNN) being employed to address super-resol
 
 ### Related Work
 
-Early approaches in tackling the SR problem involved filtering methods like linear, bicubic, and Lanczos filtering [2]. However, despite being fast, they produce SR images with overly smooth textures.
+Early approaches in tackling the SR problem involves filtering methods like linear, bicubic, and Lanczos filtering [2]. However, despite being fast, they produce SR images with overly smooth textures.
 
-CNN-based single image super resolution (SISR) recently gained attention because it showed superior performance over other methods of upscaling. One prominent network is described in [3] where images were upscaled using bicubic interpolation and a CNN was trained to produce state-of-the-start SR outputs. Better performance was also observed in [4] when networks are allowed to learn their own upscaling filters. And in order to produce visually convincing results, this paper relied heavily on the loss functions of [5] and [6].
+CNN-based single image super resolution (SISR) recently gained attention because it showed superior performance over the traditional methods of upscaling. One prominent network, described in [3], upscaled images using bicubic interpolation and trained a CNN to produce state-of-the-start SR outputs. Additionally, in [4], better performance is observed when networks are allowed to learn their own upscaling filters. And in order to produce visually convincing results, this paper relied heavily on the loss functions in [5] and [6].
 
 ### Idea
 
-This paper proposes a deep network architecture for $${4\times}$$ upscaling of LR images—the SRResNet which used residual blocks and skip-connections. The model managed to learn its own upscaling filters and was trained using the MSE loss.
+This paper proposes a deep network architecture for $${4\times}$$ upscaling of LR images—the SRResNet which used residual blocks and skip-connections. The model learns its own upscaling filters and is trained using the MSE loss.
 
-Further, the perceptual loss (combination of the content loss and adversarial loss) was used in this paper in order to train the SRGAN. The MSE-trained SRResNet served as the generator network of the GAN.
+Further, a novel perceptual loss (combination of the content loss and adversarial loss) is used in this paper in order to train the SRGAN. The MSE-trained SRResNet serves as the generator network for the GAN training.
 
 ## 3. Method
 
-This paper exploits the GAN-based approach to tackle the SR task. They train a generator G to produce realistic SR images that can trick a discriminator D. Using this method, the generator learns to create realistic SR images that the discriminator finds difficult to differentiate from real HR images. The architectures of the generator and discriminator are explained below.
+This paper exploits the GAN-based approach to tackle the SR task. They train a generator G to produce realistic SR images that can trick a discriminator D. Using this method, the generator learns to create realistic SR images that the discriminator will find difficult to differentiate from real HR images. The architectures of the generator and discriminator are explained below.
 
 ### SRResNet / Generator
 
-The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization (BN) followed the two convolutional layers and Parametric ReLU layer is used after the first BN. Each residual block has a skip-connection. The figure below shows the SRResNet architecture.
+The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization (BN) followed the two convolutional layers and a Parametric ReLU layer is used after the first BN. Each residual block has a skip-connection. The figure below shows the SRResNet architecture.
 
 ![Figure 2. Generator G.](../../.gitbook/assets/12/generator.PNG)
 
@@ -38,11 +38,9 @@ In order to achieve $${4\times}$$ upscaling, two sub-pixel layers, each with an 
 
 ![Figure 3. Sub-pixel convolution.](../../.gitbook/assets/12/pixel_shuffle.PNG)
 
-And as mentioned above, the SRResNet is trained using the MSE loss and was used as the generator for the GAN.
-
 ### Discriminator
 
-A discriminator was also trained to solve the maximization problem. Instead of the Parametric ReLU used in the Generator, the Leaky ReLU (with $${\alpha=0.2}$$) was chosen as non-linearity. Its convolutional layers used $${3\times3}$$ filters, doubling the number of kernels for every layer of convolution starting from 64 up to 512. Strided convolutions were used to reduce the image size instead of pooling layers. The network was then terminated by two dense layers and a sigmoid function to determine whether the image is the original HR or generated SR. The figure below shows the architecture of the Discriminator network used in the paper.
+A discriminator is also trained to solve the maximization problem. Instead of the Parametric ReLU used in the generator, the Leaky ReLU (with $${\alpha=0.2}$$) is chosen as non-linearity in this network. Its convolutional layers used $${3\times3}$$ filters, doubling the number of kernels for every layer of convolution starting from 64 up to 512. Strided convolutions are used to reduce the image size instead of pooling layers. The network is then terminated by two dense layers and a sigmoid function to determine whether the image is the original HR or generated SR. The figure below shows the architecture of the discriminator network used in the paper.
 
 ![Figure 4. Discriminator D.](../../.gitbook/assets/12/discriminator.PNG)
 
@@ -90,7 +88,7 @@ where
 
 #### Structural Similarity Index Measure (SSIM)
 
-Similar to PSNR, SSIM measures the similarity of two images. Its value is between 0 to 1. A score close to 1 means the images are more similar with one another. A score closer to 0 means the images are less correlated. The SSIM is a combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
+Similar to PSNR, SSIM measures the similarity of two images and its value is between 0 to 1. A score close to 1 means the images are more similar with one another. A score closer to 0 means the images are less correlated. The SSIM is a combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
 
 ![Figure 11. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
 
@@ -98,17 +96,17 @@ where
 
 ![Figure 12. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
 
-The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_{f}}$$ and $${\mu_{g}}$$) of the two images. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_{f}}$$ and $${\sigma_{g}}$$ (measured by the standard deviation) of the images. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_{1}}$$, $${C_{2}}$$, and $${C_{3}}$$ are introduced to avoid division by 0.
+The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_{f}}$$ and $${\mu_{g}}$$) of the two images are. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_{f}}$$ and $${\sigma_{g}}$$ (measured by the standard deviation) of the two images are. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_{1}}$$, $${C_{2}}$$, and $${C_{3}}$$ are introduced to avoid division by 0.
 
-## 4. Experiment & Result
+## 4. Experiment & Results
 
 ### Experimental setup
 
-The authors randomly selected 350 thousand images from the ImageNet dataset and downscaled them with a scale of 4 using bicubic interpolation to obtain LR images. Adam optimizer was used with a learning rate of 10<sup>-4</sup> and each mini-batch of training consisted of 16 random 96 x 96 patches generated from the training images. The authors employed an NVIDIA Tesla M40 GPU to train their model.
+The authors randomly selected 350 thousand images from the ImageNet dataset and downscaled them with a scale of 4 using bicubic interpolation to obtain LR images. Adam optimizer is used with a learning rate of 10<sup>-4</sup> and each mini-batch of training consists of 16 random 96 x 96 patches generated from the training images. The authors employ an NVIDIA Tesla M40 GPU to train their model.
 
-After training the MSE-based SRResNet, it was used as a generator for the GAN training. The learning rate was 10<sup>-4</sup> for the first 10<sup>5</sup> iterations and 10<sup>-5</sup> for next 10<sup>5</sup> iterations.
+The MSE-based SRResNet is used as a generator for the GAN training after being trained. The learning rate is 10<sup>-4</sup> for the first 10<sup>5</sup> iterations and 10<sup>-5</sup> for next 10<sup>5</sup> iterations.
 
-The performance of the proposed architecture was measured by comparing the PSNR and SSIM values of the SRResNet, SRGAN, nearest neighbor, bicubic, SRCNN, SelfExSR, DRCN, and ESPCN on the Set5, Set14, and BSD100 datasets. Further, by asking 26 people to rate the SR images, mean opinion score (MOS) test was performed to quantify how convincing the outputs are.
+The performance of the proposed architecture is measured by comparing the PSNR and SSIM values of the SRResNet, SRGAN, nearest neighbor, bicubic, SRCNN, SelfExSR, DRCN, and ESPCN on the Set5, Set14, and BSD100 datasets. Further, by asking 26 people to rate the SR images, mean opinion score (MOS) test is performed to quantify how convincing the outputs are.
 
 ### Results
 
