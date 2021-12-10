@@ -6,7 +6,9 @@ description: Ledig et al. / Photo-Realistic Single Image Super-Resolution Using 
 
 ##  1. Problem Definition
 
-Recent convolutional neural networks (CNN) being employed to address super-resolution (SR) problems have become both faster and deeper. These networks usually minimize the pixel-wise mean squared error (MSE) between the SR image and the ground truth, producing high peak signal-to-noise ratio (PSNR) and structural similarity index measure (SSIM) values. Despite this, the models usually face difficulty recovering finer texture details and the resulting SR images are not perceptually appealing. To address this problem, the authors of this paper proposed a new architecture that can super-resolve low resolution (LR) images with $${4\times}$$ upscaling factor and, at the same time, recover high-frequency details.
+Recent convolutional neural networks (CNN) being employed to address super-resolution (SR) problems have become both faster and deeper. These networks usually minimize the pixel-wise mean squared error (MSE) between the SR image and the ground truth, producing high peak signal-to-noise ratio (PSNR) and structural similarity index measure (SSIM) values. Despite this, the models usually face difficulty recovering finer texture details and the resulting SR images are not perceptually appealing (as shown in the figure below). To address this problem, the authors of this paper proposed a new architecture that can super-resolve low resolution (LR) images with $${4\times}$$ upscaling factor and, at the same time, recover high-frequency details.
+
+![Figure 1. Comparison of SR images produced using bicubic interpolation, SRResNet, and SRGAN and the corresponding HR image. The PSNR and SSIM values are shown above.](../../.gitbook/assets/12/comparison.PNG)
 
 ## 2. Motivation
 
@@ -30,11 +32,11 @@ This paper exploits the GAN-based approach to tackle the SR task. They train a g
 
 The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization (BN) followed the two convolutional layers and Parametric ReLU layer is used after the first BN. Each residual block has a skip-connection. The figure below shows the SRResNet architecture.
 
-![Figure 1. Generator G.](../../.gitbook/assets/12/generator.PNG)
+![Figure 2. Generator G.](../../.gitbook/assets/12/generator.PNG)
 
 In order to achieve $${4\times}$$ upscaling, two sub-pixel layers, each with an upscaling factor of 2, are added at the end of the network. What this sub-pixel layer does is it rearranges an input with a dimension of $${(\*, C\timesr^{2}, H, W)}$$ to a tensor with a dimension of $${(\*, C, H\timesr, W\timesr)}$$. Here, $${r}$$ is the upscaling factor. Refer to [8] for a more detailed explanation of the sub-pixel layer. The figure below shows how the sub-pixel layer performs upsampling.
 
-![Figure 2. Sub-Pixel Convolution.](../../.gitbook/assets/12/pixel_shuffle.PNG)
+![Figure 3. Sub-pixel convolution.](../../.gitbook/assets/12/pixel_shuffle.PNG)
 
 And as mentioned above, the SRResNet is trained using the MSE loss and was used as the generator for the GAN.
 
@@ -42,13 +44,13 @@ And as mentioned above, the SRResNet is trained using the MSE loss and was used 
 
 A discriminator was also trained to solve the maximization problem. Instead of the Parametric ReLU used in the Generator, the Leaky ReLU (with $${\alpha=0.2}$$) was chosen as non-linearity. Its convolutional layers used $${3\times3}$$ filters, doubling the number of kernels for every layer of convolution starting from 64 up to 512. Strided convolutions were used to reduce the image size instead of pooling layers. The network was then terminated by two dense layers and a sigmoid function to determine whether the image is the original HR or generated SR. The figure below shows the architecture of the Discriminator network used in the paper.
 
-![Figure 2. Discriminator D.](../../.gitbook/assets/12/discriminator.PNG)
+![Figure 4. Discriminator D.](../../.gitbook/assets/12/discriminator.PNG)
 
 ### Loss Functions
 
 A novel perceptual loss function, which is the combination of the content loss and adversarial loss, is defined in this paper. The MSE loss is used as the content loss for the SRResNet while the VGG loss is exploited for the SRGAN. Further, the adversarial loss is introduced only in the GAN training. The expression for the perceptual loss is given by:
 
-![Figure 4. Perceptual Loss.](../../.gitbook/assets/12/perceptual_loss.PNG)
+![Figure 5. Perceptual Loss.](../../.gitbook/assets/12/perceptual_loss.PNG)
 
 #### Content Loss
 
@@ -56,19 +58,19 @@ A novel perceptual loss function, which is the combination of the content loss a
 
 For the SRResNet architecture, the authors use the MSE loss. However, although it achieved higher PSNR and SSIM values, this loss generated blurry SR images, i.e. the images lack finer details. The MSE loss is shown below.
 
-![Figure 3. MSE Loss.](../../.gitbook/assets/12/mse_loss.PNG)
+![Figure 6. MSE Loss.](../../.gitbook/assets/12/mse_loss.PNG)
 
 ##### *VGG Loss*
 
 The VGG loss puts more importance on the perceptual instead of the pixel space similarity. The VGG loss is shown below where $${\phi_{i,j}}$$ is the *j*-th convolution (after activation) before the *i*-th maxpooling layer of the VGG19 network.
 
-![Figure 5. VGG Loss.](../../.gitbook/assets/12/vgg_loss.PNG)
+![Figure 7. VGG Loss.](../../.gitbook/assets/12/vgg_loss.PNG)
 
 #### Adversarial Loss
 
 Finally, the discriminator network is trained to tell the difference between the generated SR and the HR images using the adversarial loss shown below.
 
-![Figure 6. Adversarial Loss.](../../.gitbook/assets/12/adversarial_loss.PNG)
+![Figure 8. Adversarial Loss.](../../.gitbook/assets/12/adversarial_loss.PNG)
 
 ### Evaluation Metrics
 
@@ -80,21 +82,21 @@ The PSNR is used to measure the numerical difference between two images. A highe
 
 Suppose we have an HR image $${f}$$ and a corresponding SR image $${g}$$ with the same dimension $${M\timesN}$$, the PSNR is given by:
 
-![Figure 7. Peak Signal-to-Noise Ratio (PSNR).](../../.gitbook/assets/12/PSNR.PNG)
+![Figure 9. Peak Signal-to-Noise Ratio (PSNR).](../../.gitbook/assets/12/PSNR.PNG)
 
 where
 
-![Figure 8. Mean Squared Error (MSE).](../../.gitbook/assets/12/MSE.PNG)
+![Figure 10. Mean Squared Error (MSE).](../../.gitbook/assets/12/MSE.PNG)
 
 #### Structural Similarity Index Measure (SSIM)
 
 Similar to PSNR, SSIM measures the similarity of two images. Its value is between 0 to 1. A score close to 1 means the images are more similar with one another. A score closer to 0 means the images are less correlated. The SSIM is a combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
 
-![Figure 9. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
+![Figure 11. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
 
 where
 
-![Figure 9. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
+![Figure 12. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
 
 The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_{f}}$$ and $${\mu_{g}}$$) of the two images. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_{f}}$$ and $${\sigma_{g}}$$ (measured by the standard deviation) of the images. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_{1}}$$, $${C_{2}}$$, and $${C_{3}}$$ are introduced to avoid division by 0.
 
@@ -112,19 +114,19 @@ The performance of the proposed architecture was measured by comparing the PSNR 
 
 The SRResNet with MSE loss recorded the highest PSNR and SSIM values as shown in the figure below.
 
-![Figure 7. SRResNet and SRGAN Results.](../../.gitbook/assets/12/srresnet_srgan_result.PNG)
+![Figure 13. SRResNet and SRGAN Results.](../../.gitbook/assets/12/srresnet_srgan_result.PNG)
 
 However, the SRGAN obtained higher MOS amongst all the given SR methods. The details are shown in the table below.
 
-![Figure 8. MOS Results.](../../.gitbook/assets/12/mos_result.PNG)
+![Figure 14. MOS Results.](../../.gitbook/assets/12/mos_result.PNG)
 
 The next table shows the comparison in the PSNR, SSIM, and MOS of the SRResNet and SRGAN with other SR methods. Note that the SRResNet outperformed the other methods in terms of PSNR, SSIM, and MOS that are existing at the time.
 
-![Figure 9. PSNR, SSIM, and MOS of Various SR Networks.](../../.gitbook/assets/12/benchmark.PNG)
+![Figure 15. PSNR, SSIM, and MOS of Various SR Networks.](../../.gitbook/assets/12/benchmark.PNG)
 
 Reconstruction results are provided in the figure below. Notice that the SRGAN-VGG54 managed to retrieve better texture details.
 
-![Figure 10. Reconstruction Results.](../../.gitbook/assets/12/reconstruction_results.PNG)
+![Figure 16. Reconstruction Results.](../../.gitbook/assets/12/reconstruction_results.PNG)
 
 ## 5. Conclusion
 
