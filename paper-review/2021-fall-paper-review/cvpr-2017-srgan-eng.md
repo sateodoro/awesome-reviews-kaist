@@ -26,11 +26,15 @@ Further, the perceptual loss (combination of the content loss and adversarial lo
 
 ### SRResNet / Generator
 
-The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization and the Parametric ReLU followed the convolutional layer. Each residual block has skip-connection. And in order to achieve $${4\times}$$ upscaling, two sub-pixel layers were added at the end of the network. The figure below shows the SRResNet architecture.
+The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization and the Parametric ReLU followed the convolutional layer. Each residual block has skip-connection. The figure below shows the SRResNet architecture.
 
 ![Figure 1. Generator G.](../../.gitbook/assets/12/generator.PNG)
 
-As mentioned above, the SRResNet was trained using the MSE loss and was used as the generator for the GAN.
+In order to achieve $${4\times}$$ upscaling, two sub-pixel layers, each with an upscaling factor of 2, are added at the end of the network. What this sub-pixel layer does is it rearranges an input tensor with a dimension of $${(\*, C\timesr^{2}, H, W)}$$ to a tensor with a dimension of $${(\*, C, H\timesr, W\timesr)}$$. Here, $${r}$$ is the upscaling factor. Refer to [8] for a more detailed explanation of the sub-pixel layer. The figure below shows how the sub-pixel layer performs upsampling.
+
+![Figure 2. Sub-Pixel Convolution.](../../.gitbook/assets/12/pixel_shuffle.PNG)
+
+And as mentioned above, the SRResNet is trained using the MSE loss and was used as the generator for the GAN.
 
 ### Discriminator
 
