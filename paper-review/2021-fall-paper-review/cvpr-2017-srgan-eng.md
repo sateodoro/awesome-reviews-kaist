@@ -70,11 +70,15 @@ In this paper, the PSNR and SSIM metrics are used to quantitatively evaluate the
 
 #### Peak Signal-to-Noise Ratio (PSNR)
 
-Suppose we have an HR image $f$ and a corresponding SR image $g$ with the same dimension $M\timesN$, the PSNR is given by:
+Suppose we have an HR image $${f}$$ and a corresponding SR image $${g}$$ with the same dimension $${M\timesN}$$, the PSNR is given by:
 
-![Figure 7. Peak Signal-to-Noise Ratio.](../../.gitbook/assets/12/PSNR.PNG)
+![Figure 7. Peak Signal-to-Noise Ratio (PSNR).](../../.gitbook/assets/12/PSNR.PNG)
 
 where
+
+![Figure 8. Mean Squared Error (MSE).](../../.gitbook/assets/12/PSNR.PNG)
+
+#### Structural Similarity Index Measure (SSIM)
 
 ## 4. Experiment & Result
 
