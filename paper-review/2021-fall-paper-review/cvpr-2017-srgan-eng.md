@@ -46,27 +46,27 @@ A discriminator was also trained to solve the maximization problem. Instead of t
 
 ### Loss Functions
 
-#### MSE Loss
-
-For the SRResNet architecture, the authors used the MSE loss. However, although it achieved higher PSNR and SSIM values, this loss generated blurry SR images, i.e. the images lack finer details. The MSE loss is shown below.
-
-![Figure 3. MSE Loss.](../../.gitbook/assets/12/mse_loss.PNG)
-
-#### Perceptual Loss
-
-The SRGAN, on the other hand, utilized a different loss function which the authors call the perceptual loss. It is the combination of the content loss (VGG loss) and the adversarial loss. The equation below shows the perceptual loss.
+A novel perceptual loss function, which is the combination of the content loss and adversarial loss, is defined in this paper. The MSE loss is used as the content loss for the SRResNet while the VGG loss is exploited for the SRGAN. Further, the adversarial loss is introduced only in the GAN training. The expression for the perceptual loss is given by:
 
 ![Figure 4. Perceptual Loss.](../../.gitbook/assets/12/perceptual_loss.PNG)
 
+#### Content Loss
+
+##### *MSE Loss*
+
+For the SRResNet architecture, the authors use the MSE loss. However, although it achieved higher PSNR and SSIM values, this loss generated blurry SR images, i.e. the images lack finer details. The MSE loss is shown below.
+
+![Figure 3. MSE Loss.](../../.gitbook/assets/12/mse_loss.PNG)
+
 ##### *VGG Loss*
 
-The VGG loss (content loss) puts more importance on the perceptual instead of the pixel space similarity. The VGG loss is shown below where $${\phi_{i,j}}$$ is the *j*-th convolution (after activation) before the *i*-th maxpooling layer of the VGG19 network.
+The VGG loss puts more importance on the perceptual instead of the pixel space similarity. The VGG loss is shown below where $${\phi_{i,j}}$$ is the *j*-th convolution (after activation) before the *i*-th maxpooling layer of the VGG19 network.
 
 ![Figure 5. VGG Loss.](../../.gitbook/assets/12/vgg_loss.PNG)
 
-##### *Adversarial Loss*
+#### Adversarial Loss
 
-The discriminator network was trained to tell the difference between the generated SR and the HR images using the adversarial loss shown below.
+The discriminator network is trained to tell the difference between the generated SR and the HR images using the adversarial loss shown below.
 
 ![Figure 6. Adversarial Loss.](../../.gitbook/assets/12/adversarial_loss.PNG)
 
