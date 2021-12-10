@@ -78,7 +78,7 @@ Suppose we have an HR image $${f}$$ and a corresponding SR image $${g}$$ with th
 
 where
 
-![Figure 8. Mean Squared Error (MSE).](../../.gitbook/assets/12/PSNR.PNG)
+![Figure 8. Mean Squared Error (MSE).](../../.gitbook/assets/12/MSE.PNG)
 
 #### Structural Similarity Index Measure (SSIM)
 
