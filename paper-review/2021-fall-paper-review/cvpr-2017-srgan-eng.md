@@ -82,13 +82,15 @@ where
 
 #### Structural Similarity Index Measure (SSIM)
 
-Similar to PSNR, SSIM measures the similarity of two images. It is the combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
+Similar to PSNR, SSIM measures the similarity of two images. Its value is between 0 to 1. A score close to 1 means the images are more similar with one another. A score closer to 0 means the images are less correlated. The SSIM is a combination of three factors, namely, the loss of correlation, luminance distortion, and contrast distortion. In [7], SSIM is defined as:
 
 ![Figure 9. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
 
 where
 
 ![Figure 9. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
+
+The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_f}$$ and $${\mu_g}$$) of the two images. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_f}$$ and $${\sigma_g}$$ (measured by the standard deviation) of the images. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_1}$$, $${C_2}$$, and $${C_3}$$ are introduced to avoid division by 0.
 
 ## 4. Experiment & Result
 
