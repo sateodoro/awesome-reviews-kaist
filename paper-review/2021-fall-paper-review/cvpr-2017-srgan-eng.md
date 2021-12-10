@@ -98,7 +98,7 @@ In conclusion, the authors successfully designed, built, and trained a network t
 
 ### Take Home Message
 
-> Despite producing smaller PSNR and SSIM values than the SRResNet, the SRGAN can generate more realistic and perceptually acceptable SR images.
+> Despite producing smaller PSNR and SSIM values than the SRResNet, the SRGAN can generate more realistic and perceptually appealing SR images.
 
 ## Author / Reviewer Information
 
