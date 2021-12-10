@@ -70,6 +70,8 @@ In this paper, the PSNR and SSIM metrics are used to quantitatively evaluate the
 
 #### Peak Signal-to-Noise Ratio (PSNR)
 
+The PSNR is used to measure the numerical difference between two images. A higher PSNR value implies better image quality. On the contrary, a small PSNR score means the two images are different.
+
 Suppose we have an HR image $${f}$$ and a corresponding SR image $${g}$$ with the same dimension $${M\timesN}$$, the PSNR is given by:
 
 ![Figure 7. Peak Signal-to-Noise Ratio (PSNR).](../../.gitbook/assets/12/PSNR.PNG)
