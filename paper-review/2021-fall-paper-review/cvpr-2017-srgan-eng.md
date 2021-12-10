@@ -26,11 +26,11 @@ Further, the perceptual loss (combination of the content loss and adversarial lo
 
 ### SRResNet / Generator
 
-The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization and the Parametric ReLU followed the convolutional layer. Each residual block has skip-connection. The figure below shows the SRResNet architecture.
+The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization (BN) followed the two convolutional layers and Parametric ReLU layer is used after the first BN. Each residual block has a skip-connection. The figure below shows the SRResNet architecture.
 
 ![Figure 1. Generator G.](../../.gitbook/assets/12/generator.PNG)
 
-In order to achieve $${4\times}$$ upscaling, two sub-pixel layers, each with an upscaling factor of 2, are added at the end of the network. What this sub-pixel layer does is it rearranges an input tensor with a dimension of $${(\*, C\timesr^{2}, H, W)}$$ to a tensor with a dimension of $${(\*, C, H\timesr, W\timesr)}$$. Here, $${r}$$ is the upscaling factor. Refer to [8] for a more detailed explanation of the sub-pixel layer. The figure below shows how the sub-pixel layer performs upsampling.
+In order to achieve $${4\times}$$ upscaling, two sub-pixel layers, each with an upscaling factor of 2, are added at the end of the network. What this sub-pixel layer does is it rearranges an input with a dimension of $${(\*, C\timesr^{2}, H, W)}$$ to a tensor with a dimension of $${(\*, C, H\timesr, W\timesr)}$$. Here, $${r}$$ is the upscaling factor. Refer to [8] for a more detailed explanation of the sub-pixel layer. The figure below shows how the sub-pixel layer performs upsampling.
 
 ![Figure 2. Sub-Pixel Convolution.](../../.gitbook/assets/12/pixel_shuffle.PNG)
 
@@ -156,3 +156,4 @@ In conclusion, the authors successfully designed, built, and trained a network t
 5. J. Johnson, A. Alahi, and F. Li. Perceptual losses for real-time style transfer and super-resolution. In European Conference on Computer Vision (ECCV), pages 694–711. Springer, 2016. ([link](https://arxiv.org/pdf/1603.08155.pdf))
 6. J. Bruna, P. Sprechmann, and Y. LeCun. Super-resolution with deep convolutional sufficient statistics. In International Conference on Learning Representations (ICLR), 2016. ([link](https://arxiv.org/pdf/1511.05666.pdf))
 7. A. Horé and D. Ziou, "Image Quality Metrics: PSNR vs. SSIM," 2010 20th International Conference on Pattern Recognition, 2010, pp. 2366-2369, doi: 10.1109/ICPR.2010.579. ([link](https://ieeexplore.ieee.org/document/5596999))
+8. W. Shi, J. Caballero, F. Huszar, J. Totz, A. P. Aitken, R. Bishop, D. Rueckert, and Z. Wang. Real-Time Single Image and Video Super-Resolution Using an Efficient Sub Pixel Convolutional Neural Network. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pages 1874–1883, 2016. ([link](https://arxiv.org/pdf/1609.05158.pdf))
