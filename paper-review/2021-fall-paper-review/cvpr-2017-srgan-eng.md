@@ -24,6 +24,8 @@ Further, the perceptual loss (combination of the content loss and adversarial lo
 
 ## 3. Method
 
+This paper exploits the GAN-based approach to tackle the SR task. They train a generator G to produce realistic SR images that can trick a discriminator D. Using this method, the generator learns to create realistic SR images that the discriminator finds difficult to differentiate from real HR images. The architectures of the generator and discriminator are explained below.
+
 ### SRResNet / Generator
 
 The proposed SRResNet contains 16 residual blocks. Each residual block has two convolutional layers that used 64 $${3\times3}$$ filters. Batch normalization (BN) followed the two convolutional layers and Parametric ReLU layer is used after the first BN. Each residual block has a skip-connection. The figure below shows the SRResNet architecture.
