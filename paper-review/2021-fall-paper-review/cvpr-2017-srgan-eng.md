@@ -90,7 +90,7 @@ where
 
 ![Figure 9. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
 
-The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_f}$$ and $${\mu_g}$$) of the two images. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_f}$$ and $${\sigma_g}$$ (measured by the standard deviation) of the images. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_1}$$, $${C_2}$$, and $${C_3}$$ are introduced to avoid division by 0.
+The first term $${l(f,g)}$$ is called the luminance comparison function and it measures how close the mean luminance ($${\mu_{f}}$$ and $${\mu_{g}}$$) of the two images. The second term $${c(f,g)}$$ is called the contrast comparison function and it measures how close the contrast $${\sigma_{f}}$$ and $${\sigma_{g}}$$ (measured by the standard deviation) of the images. Finally, the third term $${s(f,g)}$$ is called the structure comparison function and it measures the correlation coefficient between the two images. $${C_{1}}$$, $${C_{2}}$$, and $${C_{3}}$$ are introduced to avoid division by 0.
 
 ## 4. Experiment & Result
 
