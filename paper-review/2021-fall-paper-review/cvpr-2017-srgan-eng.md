@@ -66,7 +66,7 @@ The VGG loss puts more importance on the perceptual instead of the pixel space s
 
 #### Adversarial Loss
 
-The discriminator network is trained to tell the difference between the generated SR and the HR images using the adversarial loss shown below.
+Finally, the discriminator network is trained to tell the difference between the generated SR and the HR images using the adversarial loss shown below.
 
 ![Figure 6. Adversarial Loss.](../../.gitbook/assets/12/adversarial_loss.PNG)
 
