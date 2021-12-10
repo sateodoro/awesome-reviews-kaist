@@ -106,7 +106,7 @@ After training the MSE-based SRResNet, it was used as a generator for the GAN tr
 
 The performance of the proposed architecture was measured by comparing the PSNR and SSIM values of the SRResNet, SRGAN, nearest neighbor, bicubic, SRCNN, SelfExSR, DRCN, and ESPCN on the Set5, Set14, and BSD100 datasets. Further, by asking 26 people to rate the SR images, mean opinion score (MOS) test was performed to quantify how convincing the outputs are.
 
-### Result
+### Results
 
 The SRResNet with MSE loss recorded the highest PSNR and SSIM values as shown in the figure below.
 
