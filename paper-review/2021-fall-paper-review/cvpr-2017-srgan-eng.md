@@ -86,6 +86,10 @@ Similar to PSNR, SSIM measures the similarity of two images. It is the combinati
 
 ![Figure 9. Structural Similarity Index Measure.](../../.gitbook/assets/12/SSIM.PNG)
 
+where
+
+![Figure 9. SSIM Factors.](../../.gitbook/assets/12/SSIM_factors.PNG)
+
 ## 4. Experiment & Result
 
 ### Experimental setup
